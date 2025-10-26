@@ -1,0 +1,37 @@
+<div class="card">
+  <div class="card-header">
+    <h1 class="card-title"><%= @course.title %></h1>
+  </div>
+  <div class="card-body">
+    <p><strong>價格:</strong> <%= number_to_currency(@course.price, unit: "NT$") %></p>
+    <p><strong>兌換點數:</strong> <%= @course.point_cost %></p>
+    <p><strong>單元觀看成本:</strong> <%= @course.lesson_point_cost %></p>
+    <p><strong>觀看期限(天):</strong> <%= @course.viewing_period_days %></p>
+    <p><strong>描述:</strong></p>
+    <div><%= @course.description %></div>
+
+    <h2 class="mt-4">課程單元</h2>
+    <%= link_to "新增單元", new_admin_course_lesson_path(@course), class: "btn btn-success mb-3" %>
+
+    <% if @course.lessons.any? %>
+      <ul class="list-group">
+        <% @course.lessons.each do |lesson| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <%= link_to lesson.title, admin_course_lesson_path(@course, lesson) %>
+            <div>
+              <%= link_to "編輯", edit_admin_course_lesson_path(@course, lesson), class: "btn btn-sm btn-warning me-2" %>
+              <%= link_to "刪除", admin_course_lesson_path(@course, lesson), data: { turbo_method: :delete, turbo_confirm: "確定要刪除這個單元嗎？" }, class: "btn btn-sm btn-danger" %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>目前沒有任何單元。</p>
+    <% end %>
+  </div>
+  <div class="card-footer">
+    <%= link_to "編輯課程", edit_admin_course_path(@course), class: "btn btn-warning me-2" %>
+    <%= link_to "返回課程列表", admin_courses_path, class: "btn btn-secondary" %>
+  </div>
+</div>
+

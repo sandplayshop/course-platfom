@@ -1,0 +1,33 @@
+<h1 class="mb-4">課程管理</h1>
+
+<%= link_to "新增課程", new_admin_course_path, class: "btn btn-primary mb-3" %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>標題</th>
+      <th>價格</th>
+      <th>兌換點數</th>
+      <th>單元扣點</th>
+      <th>觀看期限(天)</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @courses.each do |course| %>
+      <tr>
+        <td><%= course.title %></td>
+        <td><%= number_to_currency(course.price, unit: "NT$") %></td>
+        <td><%= course.point_cost %></td>
+        <td><%= course.lesson_point_cost %></td>
+        <td><%= course.viewing_period_days %></td>
+        <td>
+          <%= link_to "查看", admin_course_path(course), class: "btn btn-sm btn-info" %>
+          <%= link_to "編輯", edit_admin_course_path(course), class: "btn btn-sm btn-warning" %>
+          <%= link_to "刪除", admin_course_path(course), data: { turbo_method: :delete, turbo_confirm: "確定要刪除這門課程嗎？" }, class: "btn btn-sm btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

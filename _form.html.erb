@@ -1,0 +1,53 @@
+<div class="card">
+  <div class="card-body">
+    <%= form_with(model: [:admin, @course], local: true) do |form| %>
+      <% if @course.errors.any? %>
+        <div id="error_explanation" class="alert alert-danger">
+          <h2><%= pluralize(@course.errors.count, "error") %> prohibited this course from being saved:</h2>
+
+          <ul>
+            <% @course.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="mb-3">
+        <%= form.label :title, "課程標題", class: "form-label" %>
+        <%= form.text_field :title, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :description, "課程描述", class: "form-label" %>
+        <%= form.rich_text_area :description, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :price, "價格", class: "form-label" %>
+        <%= form.number_field :price, step: :any, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :point_cost, "兌換所需點數", class: "form-label" %>
+        <%= form.number_field :point_cost, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :lesson_point_cost, "單元觀看成本", class: "form-label" %>
+        <%= form.number_field :lesson_point_cost, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :viewing_period_days, "觀看期限(天)", class: "form-label" %>
+        <%= form.number_field :viewing_period_days, class: "form-control" %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit "儲存課程", class: "btn btn-primary" %>
+        <%= link_to "返回", admin_courses_path, class: "btn btn-secondary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+

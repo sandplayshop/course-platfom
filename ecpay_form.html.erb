@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>導向綠界金流</title>
+</head>
+<body>
+  <p>正在導向綠界金流頁面，請稍候...</p>
+  <%= form_with(url: @form_info[:url], method: :post, local: true, id: "ecpay_form") do |form| %>
+    <% @form_info[:params].each do |key, value| %>
+      <%= form.hidden_field key, value: value %>
+    <% end %>
+  <% end %>
+  <script type="text/javascript">
+    document.getElementById("ecpay_form").submit();
+  </script>
+</body>
+</html>
+
